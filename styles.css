@@ -1,0 +1,431 @@
+:root {
+  color-scheme: dark;
+  --obsidian: #230c10;
+  --ivory: #e5dfd2;
+  --oxblood: #4d1625;
+  --ink: #111216;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--obsidian);
+  font-family: "Basic Sans", "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 8px;
+}
+
+.experience,
+.scene {
+  min-height: 100svh;
+}
+
+.scene {
+  width: 100%;
+}
+
+.scene[hidden] {
+  display: none !important;
+}
+
+.scene:not(.scene--paper) {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 57%, rgba(77, 22, 37, 0.68) 0, rgba(35, 12, 16, 0.78) 38%, transparent 68%),
+    linear-gradient(180deg, #0e0c0e 0%, #230c10 58%, #0d0b0c 100%);
+}
+
+.stage-action {
+  display: grid;
+  width: 100%;
+  min-height: 100svh;
+  padding: clamp(2rem, 7vh, 5rem) 1.5rem;
+  border: 0;
+  place-content: center;
+  color: var(--ivory);
+  background: transparent;
+  cursor: pointer;
+}
+
+.stage-action:hover .interaction-cue,
+.stage-action:focus-visible .interaction-cue {
+  color: var(--ivory);
+  letter-spacing: 0.2em;
+}
+
+.reveal-stage {
+  display: block;
+}
+
+.envelope {
+  position: relative;
+  display: block;
+  width: min(82vw, 42rem);
+  aspect-ratio: 1.85;
+  filter: drop-shadow(0 1.8rem 2.8rem rgba(0, 0, 0, 0.22));
+  isolation: isolate;
+}
+
+.envelope__back,
+.envelope__front,
+.envelope__flap {
+  position: absolute;
+  display: block;
+}
+
+.envelope__back {
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, #211317 0%, #301a1f 20%, #40242a 42%, #513138 64%, #63434a 82%, #76565d 100%);
+  border-radius: 0 0 0.35rem 0.35rem;
+}
+
+.envelope__front {
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, #2a171b 0%, #3a2025 20%, #4b2a30 42%, #5d3a40 64%, #715158 82%, #856970 100%);
+  clip-path: polygon(0 -0.5%, 50% 44%, 100% -0.5%, 100% 100%, 0 100%);
+  border-radius: 0 0 0.35rem 0.35rem;
+}
+
+.envelope__flap {
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 0;
+}
+
+.envelope--open .envelope__flap {
+  top: auto;
+  right: 0;
+  bottom: calc(100% - 1px);
+  left: 0;
+  height: 58%;
+  z-index: 1;
+  animation: open-flap 760ms var(--ease-out) both;
+}
+
+.envelope--open .envelope__back {
+  background: linear-gradient(180deg, #a98b86 0%, #96706f 30%, #7b4c52 58%, #5e2934 82%, #4d1625 100%);
+}
+
+.envelope--open .envelope__front {
+  background: linear-gradient(180deg, #2a171b 0%, #3a2025 20%, #4b2a30 42%, #5d3a40 64%, #715158 82%, #856970 100%);
+}
+
+.envelope__fold-line {
+  stroke: #8b6867;
+  stroke-width: 1.5;
+  stroke-opacity: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+
+.envelope__from {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 12%;
+  left: 0;
+  color: var(--ink);
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  font-style: italic;
+  font-weight: 300;
+  text-align: center;
+}
+
+.interaction-cue {
+  display: block;
+  margin-top: clamp(2rem, 5vh, 3.25rem);
+  color: rgba(229, 223, 210, 0.65);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 220ms ease, letter-spacing 300ms var(--ease-out);
+}
+
+.chibi {
+  position: absolute;
+  right: 50%;
+  z-index: 2;
+  display: block;
+  height: auto;
+  transform: translateX(50%);
+  filter: drop-shadow(0 0.75rem 1rem rgba(17, 18, 22, 0.18));
+}
+
+.chibi--kiss {
+  right: auto;
+  bottom: 82%;
+  left: 67%;
+  width: 42%;
+  animation: rise-kiss 760ms var(--ease-out) both;
+}
+
+.chibi--peek {
+  right: auto;
+  bottom: 30%;
+  left: 58%;
+  width: 34%;
+  animation: peek-up 760ms 160ms var(--ease-out) both;
+}
+
+.scene--paper {
+  color-scheme: light;
+  min-height: 100svh;
+  padding: clamp(2rem, 6vw, 5.5rem) clamp(1.15rem, 5vw, 4rem);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 6%, rgba(255, 255, 255, 0.42), transparent 34%),
+    var(--ivory);
+}
+
+.letter {
+  width: min(100%, 47rem);
+  margin: 0 auto;
+  padding: clamp(0.4rem, 1.5vw, 1rem);
+}
+
+.letter__header {
+  margin: 0 0 clamp(3rem, 7vw, 5.25rem);
+  color: var(--oxblood);
+  text-align: center;
+}
+
+.letter__header h1 {
+  margin: 0;
+  font-family: "Monsieur La Doulaise", cursive;
+  font-size: clamp(3.15rem, 9.4vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.76;
+}
+
+.letter__header span {
+  display: block;
+}
+
+.letter__header span + span {
+  margin-top: 0.18em;
+  font-size: 0.76em;
+}
+
+.letter__body {
+  font-size: clamp(1rem, 1.45vw, 1.12rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.letter__body p {
+  margin: 0 0 1.45em;
+}
+
+.letter__intimate {
+  margin-top: 2.6em !important;
+  color: var(--oxblood);
+  font-weight: 400;
+}
+
+.letter__footer {
+  position: relative;
+  display: grid;
+  min-height: 12rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  grid-template-columns: 1fr minmax(7rem, 10rem);
+  align-items: end;
+}
+
+.letter__signature {
+  align-self: start;
+  margin: 0;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.letter__signature strong {
+  font-weight: 400;
+}
+
+.letter__footer img {
+  display: block;
+  width: 100%;
+  height: auto;
+  justify-self: end;
+}
+
+.letter__next,
+.celebration__return {
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  background: transparent;
+  cursor: pointer;
+}
+
+.letter__next {
+  margin-top: 3rem;
+  padding: 0.7rem 0;
+  grid-column: 1 / -1;
+  justify-self: center;
+  color: var(--oxblood);
+}
+
+.letter__next:focus-visible {
+  outline-color: var(--oxblood);
+}
+
+.celebration {
+  display: grid;
+  width: min(78vw, 34rem);
+  justify-items: center;
+  color: var(--ivory);
+  text-align: center;
+  animation: toast-in 700ms var(--ease-out) both;
+}
+
+.celebration img {
+  display: block;
+  width: min(100%, 30rem);
+  height: auto;
+  filter: drop-shadow(0 1.5rem 2.5rem rgba(0, 0, 0, 0.24));
+}
+
+.celebration p {
+  margin: 1rem 0 2rem;
+  font-family: "Monsieur La Doulaise", cursive;
+  font-size: clamp(3rem, 9vw, 5.2rem);
+  line-height: 0.9;
+}
+
+.celebration__return {
+  padding: 0.65rem 0;
+  color: rgba(229, 223, 210, 0.72);
+}
+
+@keyframes rise-kiss {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 18%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes open-flap {
+  from {
+    opacity: 0;
+    transform: translateY(24%) scaleY(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes peek-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 28%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 42rem) {
+  .stage-action {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .envelope {
+    width: min(92vw, 32rem);
+  }
+
+  .scene--paper {
+    padding-top: 3rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .letter {
+    padding: 0;
+  }
+
+  .letter__header {
+    margin-bottom: 3.4rem;
+  }
+
+  .letter__body {
+    line-height: 1.72;
+  }
+
+  .letter__footer {
+    grid-template-columns: 1fr 7.5rem;
+  }
+
+  .celebration {
+    width: min(86vw, 30rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
